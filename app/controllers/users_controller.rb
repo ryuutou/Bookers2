@@ -24,8 +24,10 @@ class UsersController < ApplicationController
         flash[:notice] = "successfully"
         redirect_to user_path(user.id)
       	else
-      		@user = User.find(params[:id])
-        render 'users/edit'
+      	flash[:alert] = "error"
+      	redirect_to user_path(user.id)
+      	#@user = User.find(params[:id])
+        #render 'users/edit'
      end
 	end
 

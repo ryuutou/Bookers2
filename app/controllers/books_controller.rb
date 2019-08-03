@@ -24,8 +24,10 @@ class BooksController < ApplicationController
        flash[:notice] = "successfully"
        redirect_to book_path(book.id)
     else
+        flash[:alert] = "error"
+        #redirect_to edit_book_path(book.id)
         @book = Book.find(params[:id])
-       render 'books/edit'
+        render 'books/edit'
     end
   end
 
