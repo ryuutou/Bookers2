@@ -1,0 +1,42 @@
+<%= render 'users/list', user: @user, book: @book %>
+
+<div class="col-xs-9">
+<h2>Books detail</h2>
+  <table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%= link_to user_path(@books.user) do %>
+        <%= attachment_image_tag @books.user, :profile_image, :fill, 100, 100, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpeg" %>
+        <% end %>
+        <br>
+        <%= link_to @books.user.name, user_path(@books.user) %>
+      </td>
+      <td>
+        <%= @books.title %>
+      </td>
+      <td>
+        <%= @books.body %>
+      </td>
+      <td>
+        <% if @books.user_id == current_user.id %>
+        <%= link_to "Edit",edit_book_path(@books)%>
+        <% end %>
+      </td>
+      <td>
+        <% if @books.user_id == current_user.id %>
+        <%= link_to "Destroy",  book_path(@books), method: :delete %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+  </table>
+</div>
