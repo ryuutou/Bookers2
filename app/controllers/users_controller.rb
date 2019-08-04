@@ -1,13 +1,15 @@
 class UsersController < ApplicationController
 	before_action :authenticate_user!
 
+	before_action :ensure_correct_user, {only: [:edit, :update]}
+
 	def index
 		@users = User.all
 		@user = current_user
 		@book = Book.new
 
 	end
-	
+
 	def show
 		@user = User.find(params[:id])
 		@book = Book.new
@@ -36,5 +38,11 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :profile_image, :introduction)
     end
 
+    def ensure_correct_user
+  		if current_user.id != params[:id].to_i
+    	flash[:notice] = "権限がありません"
+    	redirect_to user_path(current_user)
+  		end
+  	end
+
 end
-      
